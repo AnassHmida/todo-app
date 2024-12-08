@@ -10,7 +10,11 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "react-native start",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "type-check": "tsc --noEmit",
+    "validate": "npm run lint && npm run type-check && npm run test"
   },
   "dependencies": {
     "react": "18.3.1",
@@ -20,6 +24,8 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@babel/runtime": "^7.25.0",
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
     "@react-native-community/cli": "15.0.1",
     "@react-native-community/cli-platform-android": "15.0.1",
     "@react-native-community/cli-platform-ios": "15.0.1",
@@ -27,6 +33,7 @@
     "@react-native/eslint-config": "0.76.4",
     "@react-native/metro-config": "0.76.4",
     "@react-native/typescript-config": "0.76.4",
+    "@testing-library/jest-native": "^5.4.3",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
