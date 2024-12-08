@@ -1,5 +1,5 @@
-import {getDefaultConfig, mergeConfig} from '@react-native/metro-config';
-
+const {getDefaultConfig} = require('@react-native/metro-config');
+const {mergeConfig} = require('metro-config');
 /**
  * Metro configuration
  * https://reactnative.dev/docs/metro
