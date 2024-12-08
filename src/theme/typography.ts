@@ -1,16 +1,22 @@
 export const typography = {
-  sizes: {
-    xs: 12,
-    sm: 14,
-    md: 16,
-    lg: 18,
-    xl: 20,
-    xxl: 24,
+  h1: {
+    fontSize: 32,
+    lineHeight: 40,
+    fontWeight: '700' as const,
   },
-  weights: {
-    regular: '400',
-    medium: '500',
-    semibold: '600',
-    bold: '700',
+  h2: {
+    fontSize: 24,
+    lineHeight: 32,
+    fontWeight: '600' as const,
+  },
+  body: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: '400' as const,
+  },
+  caption: {
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '400' as const,
   },
 };
