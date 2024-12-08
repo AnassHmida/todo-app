@@ -1,0 +1,10 @@
+# Dependencies
+node_modules
+ios/Pods
+
+# Build outputs
+android/app/build
+ios/build
+
+# Generated files
+*.generated.*
