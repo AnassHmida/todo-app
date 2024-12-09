@@ -1,16 +1,21 @@
 import React from 'react';
-import {TouchableOpacity, View, StyleSheet} from 'react-native';
+import {TouchableOpacity, View, StyleSheet, StyleProp, ViewStyle} from 'react-native';
 import {theme} from '@/theme';
 
 interface CheckboxProps {
   checked: boolean;
   onPress: () => void;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
-export const Checkbox = ({checked, onPress, style}: CheckboxProps) => {
+export const Checkbox = ({checked, onPress, style, testID}: CheckboxProps) => {
   return (
-    <TouchableOpacity style={[styles.container, style]} onPress={onPress} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={[styles.container, style]}
+      onPress={onPress}
+      activeOpacity={0.7}
+      testID={testID}>
       {checked && <View style={styles.checked} />}
     </TouchableOpacity>
   );

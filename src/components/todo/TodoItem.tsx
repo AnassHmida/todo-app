@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {Checkbox} from '@/components/common/Checkbox';
 import {IconButton} from '@/components/common/IconButton';
-import {styles} from '@/styles/components/TodoItem.styles';
+import {styles} from '@/styles/components/todo/TodoItem.styles';
 import {Todo} from '@/types/todo';
+import {Input} from '@/components/common/Input';
+import {theme} from '@/theme';
 
 interface TodoItemProps {
   todo: Todo;
@@ -20,14 +22,14 @@ export const TodoItem = ({todo, onToggle, onDelete, onEdit}: TodoItemProps) => {
     const trimmedTitle = editedTitle.trim();
     if (trimmedTitle && trimmedTitle !== todo.title) {
       onEdit(todo.id, trimmedTitle);
-      setEditedTitle(trimmedTitle);
-    } else {
-      setEditedTitle(todo.title); // Reset to original if empty
     }
     setIsEditing(false);
   };
 
-  // Reset editedTitle when todo changes
+  const handleBlur = () => {
+    handleSubmitEdit();
+  };
+
   useEffect(() => {
     setEditedTitle(todo.title);
   }, [todo.title]);
@@ -35,27 +37,40 @@ export const TodoItem = ({todo, onToggle, onDelete, onEdit}: TodoItemProps) => {
   return (
     <View style={styles.container}>
       <Checkbox
+        testID="checkbox"
         checked={todo.completed}
         onPress={() => onToggle(todo.id)}
         style={styles.checkbox}
       />
       {isEditing ? (
-        <TextInput
-          style={styles.input}
-          value={editedTitle}
-          onChangeText={setEditedTitle}
-          onBlur={handleSubmitEdit}
-          onSubmitEditing={handleSubmitEdit}
-          autoFocus
-        />
+        <View style={styles.editContainer}>
+          <Input
+            testID="todo-input"
+            value={editedTitle}
+            onChangeText={setEditedTitle}
+            onSubmitEditing={handleSubmitEdit}
+            onBlur={handleBlur}
+            style={styles.input}
+            multiline
+            numberOfLines={3}
+            returnKeyType="done"
+          />
+          <IconButton
+            testID="save-button"
+            icon="save"
+            onPress={handleSubmitEdit}
+            color={theme.colors.success}
+          />
+        </View>
       ) : (
         <TouchableOpacity style={styles.content} onPress={() => setIsEditing(true)}>
-          <Text style={[styles.title, todo.completed && styles.completedTitle]}>{todo.title}</Text>
+          <Text testID="todo-text" style={[styles.title, todo.completed && styles.completedTitle]}>
+            {todo.title}
+          </Text>
         </TouchableOpacity>
       )}
       <View style={styles.actions}>
-        <IconButton icon="edit" onPress={() => setIsEditing(true)} />
-        <IconButton icon="delete" onPress={() => onDelete(todo.id)} />
+        <IconButton testID="delete-button" icon="delete" onPress={() => onDelete(todo.id)} />
       </View>
     </View>
   );

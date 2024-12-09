@@ -7,22 +7,24 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     padding: theme.spacing.md,
     backgroundColor: theme.colors.background.primary,
-    borderRadius: 12,
-    marginBottom: theme.spacing.sm,
-    shadowColor: theme.colors.shadow,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
   },
   checkbox: {
-    marginRight: theme.spacing.md,
+    marginRight: theme.spacing.sm,
   },
   content: {
     flex: 1,
+    marginRight: theme.spacing.sm,
+  },
+  input: {
+    flex: 1,
+    marginRight: theme.spacing.sm,
+    minHeight: 40,
+    padding: theme.spacing.sm,
+    borderWidth: 1,
+    borderColor: theme.colors.border.default,
+    borderRadius: 8,
+    backgroundColor: theme.colors.background.primary,
+    ...theme.typography.body,
   },
   title: {
     ...theme.typography.body,
@@ -34,16 +36,12 @@ export const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: 'row',
-    gap: theme.spacing.sm,
+    alignItems: 'center',
   },
-  input: {
+  editContainer: {
     flex: 1,
-    fontSize: 16,
-    padding: theme.spacing.md,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 8,
-    marginRight: theme.spacing.md,
-    backgroundColor: theme.colors.background.primary,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: theme.spacing.sm,
   },
 });

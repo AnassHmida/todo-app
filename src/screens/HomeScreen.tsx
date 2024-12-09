@@ -1,27 +1,24 @@
-import React, {useState} from 'react';
-import {SectionList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {SectionList, View, Text, Button} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {TodoItem} from '@/components/TodoItem';
-import {TodoInput} from '@/components/TodoInput';
-import {TodoHeader} from '@/components/TodoHeader';
-import {TodoSectionHeader} from '@/components/TodoSectionHeader';
+import {TodoItem} from '@/components/todo/TodoItem';
+import {TodoInput} from '@/components/todo/TodoInput';
+import {TodoHeader} from '@/components/todo/TodoHeader';
+import {TodoSectionHeader} from '@/components/todo/TodoSectionHeader';
+import {EmptyState} from '@/components/common/EmptyState';
 import {useTodoStore} from '@/store/todoStore';
 import {styles} from '@/styles/screens/HomeScreen.styles';
+import {LoadingOverlay} from '@/components/common/LoadingOverlay';
 
 export const HomeScreen = () => {
   const [newTodo, setNewTodo] = useState('');
-  const {todos, toggleTodo, removeTodo, addTodo, updateTodo} = useTodoStore();
+  const {todos, isLoading, error, fetchTodos, addTodo, toggleTodo, removeTodo, updateTodo} =
+    useTodoStore();
 
-  const handleAddTodo = () => {
-    if (newTodo.trim()) {
-      addTodo({title: newTodo.trim(), completed: false});
-      setNewTodo('');
-    }
-  };
-
-  const handleEditTodo = (id: string, newTitle: string) => {
-    updateTodo(id, {title: newTitle});
-  };
+  useEffect(() => {
+    fetchTodos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const sections = [
     {
@@ -34,6 +31,36 @@ export const HomeScreen = () => {
     },
   ];
 
+  const handleAddTodo = () => {
+    if (newTodo.trim() && addTodo) {
+      addTodo({title: newTodo.trim(), completed: false});
+      setNewTodo('');
+    }
+  };
+
+  if (isLoading && todos.length === 0) {
+    return <LoadingOverlay />;
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.error}>{error}</Text>
+        <Button title="Retry" onPress={fetchTodos} />
+      </View>
+    );
+  }
+
+  if (todos.length === 0) {
+    return (
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <TodoHeader />
+        <TodoInput value={newTodo} onChangeText={setNewTodo} onSubmit={handleAddTodo} />
+        <EmptyState />
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <TodoHeader />
@@ -42,15 +69,10 @@ export const HomeScreen = () => {
         sections={sections}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <TodoItem
-            todo={item}
-            onToggle={toggleTodo}
-            onDelete={removeTodo}
-            onEdit={handleEditTodo}
-          />
+          <TodoItem todo={item} onToggle={toggleTodo} onDelete={removeTodo} onEdit={updateTodo} />
         )}
         renderSectionHeader={({section: {title, data}}) =>
-          data.length > 0 ? <TodoSectionHeader title={title} /> : ''
+          data.length > 0 ? <TodoSectionHeader title={title} /> : null
         }
         stickySectionHeadersEnabled={false}
         contentContainerStyle={styles.listContent}

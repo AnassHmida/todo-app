@@ -3,19 +3,27 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {theme} from '@/theme';
 
 interface IconButtonProps {
-  icon: 'edit' | 'delete';
+  icon: 'edit' | 'delete' | 'logout' | 'save';
   onPress: () => void;
-  style?: any;
+  color?: string;
+  size?: number;
+  testID?: string;
 }
 
 const ICONS = {
   edit: '✎',
   delete: '×',
+  logout: '⇥',
+  save: '✓',
 };
 
-export const IconButton = ({icon, onPress, style}: IconButtonProps) => {
+export const IconButton = ({icon, onPress, size = 24, testID}: IconButtonProps) => {
   return (
-    <TouchableOpacity style={[styles.container, style]} onPress={onPress} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={[styles.container, {width: size, height: size}]}
+      onPress={onPress}
+      activeOpacity={0.7}
+      testID={testID}>
       <Text style={[styles.icon, icon === 'delete' && styles.deleteIcon]}>{ICONS[icon]}</Text>
     </TouchableOpacity>
   );

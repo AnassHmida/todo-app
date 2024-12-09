@@ -10,15 +10,16 @@ export const colors = {
   },
   text: {
     primary: '#000000',
-    secondary: '#3C3C43',
+    secondary: '#8E8E93',
+    disabled: '#C7C7CC',
   },
-  border: '#C6C6C8',
-  shadow: '#000000',
+  border: {
+    default: '#C6C6C8',
+    focused: '#007AFF',
+  },
   gray: {
-    100: '#F2F2F7',
-    200: '#E5E5EA',
     300: '#D1D1D6',
     400: '#C7C7CC',
     500: '#8E8E93',
   },
-};
+} as const;

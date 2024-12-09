@@ -9,4 +9,10 @@ export const styles = StyleSheet.create({
   listContent: {
     padding: theme.spacing.md,
   },
+  error: {
+    ...theme.typography.body,
+    color: theme.colors.danger,
+    textAlign: 'center',
+    padding: theme.spacing.lg,
+  },
 });
