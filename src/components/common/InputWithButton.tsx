@@ -37,7 +37,12 @@ export const InputWithButton = ({
           disabled={disabled}
         />
       </View>
-      <Button title={buttonTitle} onPress={onSubmit} disabled={disabled || !value.trim()} />
+      <Button
+        testID="button"
+        title={buttonTitle}
+        onPress={onSubmit}
+        disabled={disabled || !value.trim()}
+      />
     </View>
   );
 };

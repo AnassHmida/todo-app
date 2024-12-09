@@ -3,7 +3,7 @@ import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {theme} from '@/theme';
 
 export const LoadingOverlay = () => (
-  <View style={styles.container}>
+  <View style={styles.container} testID="loading-overlay">
     <ActivityIndicator size="large" color={theme.colors.primary} />
   </View>
 );

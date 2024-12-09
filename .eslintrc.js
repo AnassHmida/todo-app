@@ -16,4 +16,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
   },
   ignorePatterns: ['coverage/**/*'],
+  env: {
+    jest: true,
+  },
 };
