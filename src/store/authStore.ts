@@ -1,8 +1,8 @@
-import {create} from 'zustand';
-import {persist, createJSONStorage} from 'zustand/middleware';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {User} from '@/types/auth';
-import {UserDB} from '@/services/database';
+import { User } from '@/types/auth';
+import { UserDB } from '@/services/database';
 
 interface AuthState {
   user: User | null;
@@ -23,7 +23,7 @@ export const useAuthStore = create(
       error: null,
 
       login: async (username: string, password: string) => {
-        set({isLoading: true, error: null});
+        set({ isLoading: true, error: null });
         try {
           await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -41,15 +41,15 @@ export const useAuthStore = create(
             await UserDB.createUser(user);
           }
 
-          set({user, isLoading: false});
+          set({ user, isLoading: false });
         } catch (error: unknown) {
           const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-          set({error: errorMessage, isLoading: false});
+          set({ error: errorMessage, isLoading: false });
         }
       },
 
       logout: () => {
-        set({user: null, error: null});
+        set({ user: null, error: null });
       },
     }),
     {

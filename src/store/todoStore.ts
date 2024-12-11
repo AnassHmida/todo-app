@@ -1,8 +1,8 @@
-import {create} from 'zustand';
-import {TodoDB} from '@/services/database';
-import {Todo, TodoInput} from '@/types/todo';
-import {handleError} from '@/utils/errorHandler';
-import {useAuthStore} from '@/store/authStore';
+import { create } from 'zustand';
+import { TodoDB } from '@/services/database';
+import { Todo, TodoInput } from '@/types/todo';
+import { handleError } from '@/utils/errorHandler';
+import { useAuthStore } from '@/store/authStore';
 
 interface TodoStore {
   todos: Todo[];
@@ -25,13 +25,13 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     const userId = useAuthStore.getState().user?.id;
     if (!userId) return;
 
-    set({isLoading: true, error: null});
+    set({ isLoading: true, error: null });
     try {
       const todos = await TodoDB.getTodos(userId);
-      set({todos, isLoading: false});
+      set({ todos, isLoading: false });
     } catch (error) {
       handleError(error);
-      set({error: 'Failed to fetch todos', isLoading: false});
+      set({ error: 'Failed to fetch todos', isLoading: false });
     }
   },
 
@@ -39,7 +39,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     const userId = useAuthStore.getState().user?.id;
     if (!userId) return;
 
-    set({isLoading: true, error: null});
+    set({ isLoading: true, error: null });
     try {
       const newTodo = await TodoDB.addTodo(todoInput, userId);
       set(state => ({
@@ -48,7 +48,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
       }));
     } catch (error) {
       handleError(error);
-      set({error: 'Failed to add todo', isLoading: false});
+      set({ error: 'Failed to add todo', isLoading: false });
     }
   },
 
@@ -57,15 +57,15 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
       const todo = get().todos.find(t => t.id === id);
       if (!todo) return;
 
-      const updatedTodo = {...todo, completed: !todo.completed};
-      await TodoDB.updateTodo(id, {completed: updatedTodo.completed});
+      const updatedTodo = { ...todo, completed: !todo.completed };
+      await TodoDB.updateTodo(id, { completed: updatedTodo.completed });
 
       set(state => ({
         todos: state.todos.map(t => (t.id === id ? updatedTodo : t)),
       }));
     } catch (error) {
       handleError(error);
-      set({error: 'Failed to toggle todo'});
+      set({ error: 'Failed to toggle todo' });
     }
   },
 
@@ -77,7 +77,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
       }));
     } catch (error) {
       handleError(error);
-      set({error: 'Failed to delete todo'});
+      set({ error: 'Failed to delete todo' });
     }
   },
 
@@ -86,15 +86,15 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
       const todo = get().todos.find(t => t.id === id);
       if (!todo) return;
 
-      const updatedTodo = {...todo, title, updatedAt: new Date()};
-      await TodoDB.updateTodo(id, {title, updatedAt: updatedTodo.updatedAt});
+      const updatedTodo = { ...todo, title, updatedAt: new Date() };
+      await TodoDB.updateTodo(id, { title, updatedAt: updatedTodo.updatedAt });
 
       set(state => ({
         todos: state.todos.map(t => (t.id === id ? updatedTodo : t)),
       }));
     } catch (error) {
       handleError(error);
-      set({error: 'Failed to update todo'});
+      set({ error: 'Failed to update todo' });
     }
   },
 }));
