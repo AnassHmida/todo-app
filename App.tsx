@@ -5,11 +5,11 @@
  * @format
  */
 
-import React, { useEffect, useState } from 'react';
-import { RootNavigator } from '@/navigation/RootNavigator';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { initDatabase } from '@/services/database';
-import { LoadingOverlay } from '@/components/common/LoadingOverlay';
+import React, {useEffect, useState} from 'react';
+import {RootNavigator} from '@/navigation/RootNavigator';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {initDatabase} from '@/services/database';
+import {LoadingOverlay} from '@/components/common/LoadingOverlay';
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
