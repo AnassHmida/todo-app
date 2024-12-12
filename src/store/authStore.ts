@@ -10,7 +10,7 @@ interface AuthState {
   error: string | null;
 }
 
-interface AuthStore extends AuthState {
+export interface AuthStore extends AuthState {
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
 }

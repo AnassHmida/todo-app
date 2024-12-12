@@ -4,7 +4,7 @@ import {InputWithButton} from '@/components/common/InputWithButton';
 
 jest.mock('@/components/common/Button', () => ({
   Button: ({onPress, disabled, title, testID}: any) => (
-    <button testID={testID || 'button'} onPress={onPress} disabled={disabled}>
+    <button testID={testID || 'button'} onClick={onPress} disabled={disabled}>
       {title}
     </button>
   ),

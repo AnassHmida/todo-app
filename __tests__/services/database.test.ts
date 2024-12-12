@@ -98,7 +98,7 @@ describe('TodoDB CRUD Operations', () => {
   });
 
   it('performs full CRUD cycle', async () => {
-    const mockDb = SQLite.openDatabase({name: 'TestDB.db', location: 'default'});
+    const mockDb = await SQLite.openDatabase({name: 'TestDB.db', location: 'default'});
 
     (mockDb.executeSql as jest.Mock).mockImplementationOnce(() =>
       Promise.resolve([
