@@ -2,7 +2,7 @@ import {renderHook, act} from '@testing-library/react-native';
 import {useAuthStore} from '@/store/authStore';
 import * as database from '@/services/database';
 
-jest.mock('@/services/database', () => ({
+jest.mock('@/services/database/index', () => ({
   UserDB: {
     getUserByUsername: jest.fn(),
     createUser: jest.fn(),
