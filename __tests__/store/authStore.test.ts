@@ -1,5 +1,5 @@
-import {renderHook, act} from '@testing-library/react-native';
-import {useAuthStore} from '@/store/authStore';
+import { renderHook, act } from '@testing-library/react-native';
+import { useAuthStore } from '@/store/authStore';
 import * as database from '@/services/database';
 
 jest.mock('@/services/database', () => ({
@@ -11,7 +11,7 @@ jest.mock('@/services/database', () => ({
 
 describe('authStore', () => {
   beforeEach(() => {
-    useAuthStore.setState({user: null, isLoading: false, error: null});
+    useAuthStore.setState({ user: null, isLoading: false, error: null });
     jest.clearAllMocks();
   });
 
@@ -24,7 +24,7 @@ describe('authStore', () => {
     (database.UserDB.getUserByUsername as jest.Mock).mockResolvedValue(mockUser);
     (database.UserDB.createUser as jest.Mock).mockResolvedValue(undefined);
 
-    const {result} = renderHook(() => useAuthStore());
+    const { result } = renderHook(() => useAuthStore());
 
     await act(async () => {
       await result.current.login('testuser', 'password123');
@@ -38,7 +38,7 @@ describe('authStore', () => {
   });
 
   it('handles login failure', async () => {
-    const {result} = renderHook(() => useAuthStore());
+    const { result } = renderHook(() => useAuthStore());
 
     await act(async () => {
       await result.current.login('testuser', '12345');

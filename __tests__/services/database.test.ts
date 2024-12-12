@@ -1,4 +1,4 @@
-import {initDatabase, TodoDB, UserDB, clearDatabase} from '@/services/database';
+import { initDatabase, TodoDB, UserDB, clearDatabase } from '@/services/database';
 import SQLite from 'react-native-sqlite-storage';
 
 jest.mock('react-native-sqlite-storage', () => ({
@@ -98,12 +98,12 @@ describe('TodoDB CRUD Operations', () => {
   });
 
   it('performs full CRUD cycle', async () => {
-    const mockDb = SQLite.openDatabase({name: 'TestDB.db', location: 'default'});
+    const mockDb = await SQLite.openDatabase({ name: 'TestDB.db', location: 'default' });
 
     (mockDb.executeSql as jest.Mock).mockImplementationOnce(() =>
       Promise.resolve([
         {
-          rows: {length: 1, item: () => testTodo},
+          rows: { length: 1, item: () => testTodo },
         },
       ]),
     );
@@ -113,7 +113,7 @@ describe('TodoDB CRUD Operations', () => {
         {
           rows: {
             length: 1,
-            raw: () => [{...testTodo, id: '1', userId: '1'}],
+            raw: () => [{ ...testTodo, id: '1', userId: '1' }],
           },
         },
       ]),
@@ -131,7 +131,7 @@ describe('UserDB Operations', () => {
   beforeEach(async () => {
     await clearDatabase();
     await initDatabase();
-    (SQLite.openDatabase({name: 'TestDB.db', location: 'default'}) as any).executeSql.mockReset();
+    (SQLite.openDatabase({ name: 'TestDB.db', location: 'default' }) as any).executeSql.mockReset();
   });
 
   it('creates and retrieves user successfully', async () => {
