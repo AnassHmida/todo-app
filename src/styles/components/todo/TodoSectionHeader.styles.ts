@@ -1,11 +1,11 @@
-import {StyleSheet} from 'react-native';
-import {theme} from '@/theme';
+import { StyleSheet } from 'react-native';
+import { theme } from '@/theme';
 
 export const styles = StyleSheet.create({
   sectionTitle: {
-    ...theme.typography.h2,
+    ...theme.typography.title,
     color: theme.colors.text.secondary,
-    padding: theme.spacing.lg,
-    paddingBottom: theme.spacing.md,
+    padding: theme.spacing.l,
+    paddingBottom: theme.spacing.m,
   },
 });

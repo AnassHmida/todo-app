@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Input} from '@/components/common/Input';
-import {Button} from '@/components/common/Button';
 import {LoadingOverlay} from '@/components/common/LoadingOverlay';
 import {useAuthStore} from '@/store/authStore';
 import {styles} from '@/styles/screens/LoginScreen.styles';
@@ -19,20 +18,20 @@ export const LoginScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.title}>Welcome Back</Text>
+        <Text style={styles.title}>ToDo App</Text>
         <Input
           value={username}
           onChangeText={setUsername}
           placeholder="Username"
           autoCapitalize="none"
-          disabled={isLoading}
+          editable={!isLoading}
         />
         <Input
           value={password}
           onChangeText={setPassword}
           placeholder="Password"
           secureTextEntry
-          disabled={isLoading}
+          editable={!isLoading}
         />
         {error && <Text style={styles.error}>{error}</Text>}
         {isLoading ? (
@@ -40,7 +39,12 @@ export const LoginScreen = () => {
             <LoadingOverlay />
           </View>
         ) : (
-          <Button title="Login" onPress={handleLogin} disabled={!username || !password} />
+          <TouchableOpacity
+            style={[styles.button, (!username || !password) && {opacity: 0.5}]}
+            onPress={handleLogin}
+            disabled={!username || !password}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
         )}
       </View>
     </SafeAreaView>

@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {theme} from '@/theme';
+import { View, Text, StyleSheet } from 'react-native';
+import { theme } from '@/theme';
 
 export const EmptyState = () => (
   <View style={styles.container}>
@@ -15,15 +15,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: theme.spacing.xl,
-  },
+  } as const,
   title: {
-    ...theme.typography.h2,
+    fontSize: theme.typography.title.fontSize,
+    fontWeight: '600' as const,
     color: theme.colors.text.primary,
-    marginBottom: theme.spacing.sm,
-  },
+    marginBottom: theme.spacing.s,
+  } as const,
   message: {
-    ...theme.typography.body,
+    fontSize: theme.typography.body.fontSize,
+    fontWeight: '400' as const,
     color: theme.colors.text.secondary,
     textAlign: 'center',
-  },
+  } as const,
 });

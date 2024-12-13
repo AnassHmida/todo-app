@@ -1,22 +1,22 @@
-import {StyleSheet} from 'react-native';
-import {theme} from '@/theme';
+import { StyleSheet } from 'react-native';
+import { theme } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: theme.spacing.lg,
-    marginBottom: theme.spacing.md,
+    paddingHorizontal: theme.spacing.l,
+    marginBottom: theme.spacing.m,
     alignItems: 'flex-start',
-    gap: theme.spacing.md,
+    gap: theme.spacing.m,
   },
   inputWrapper: {
     flex: 1,
   },
   input: {
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: theme.colors.border.default,
     borderRadius: 12,
-    padding: theme.spacing.md,
+    padding: theme.spacing.m,
     fontSize: 16,
     minHeight: 48,
     textAlignVertical: 'top',

@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {theme} from '@/theme';
+import { View, Text, StyleSheet } from 'react-native';
+import { theme } from '@/theme';
 
 interface SectionHeaderProps {
   title: string;
@@ -8,7 +8,7 @@ interface SectionHeaderProps {
   rightElement?: React.ReactNode;
 }
 
-export const SectionHeader = ({title, count, rightElement}: SectionHeaderProps) => (
+export const SectionHeader = ({ title, count, rightElement }: SectionHeaderProps) => (
   <View style={styles.container}>
     <View style={styles.titleContainer}>
       <Text style={styles.title}>{title}</Text>
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: theme.spacing.md,
+    padding: theme.spacing.m,
     backgroundColor: theme.colors.background.secondary,
   },
   titleContainer: {
@@ -31,12 +31,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    ...theme.typography.h2,
+    fontSize: theme.typography.title.fontSize,
+    fontWeight: '600',
     color: theme.colors.text.primary,
   },
   count: {
-    ...theme.typography.body,
+    fontSize: theme.typography.body.fontSize,
+    fontWeight: '400',
     color: theme.colors.text.secondary,
-    marginLeft: theme.spacing.sm,
+    marginLeft: theme.spacing.s,
   },
 });

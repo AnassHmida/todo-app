@@ -1,6 +1,7 @@
 import React from 'react';
-import {render} from '@testing-library/react-native';
-import {TodoSectionHeader} from '@/components/todo/TodoSectionHeader';
+import { render } from '@testing-library/react-native';
+import { TodoSectionHeader } from '@/components/todo/TodoSectionHeader';
+import { theme } from '@/theme';
 
 jest.mock('@/theme', () => ({
   theme: {
@@ -24,24 +25,22 @@ jest.mock('@/theme', () => ({
 
 describe('TodoSectionHeader', () => {
   it('renders correctly', () => {
-    const {getByText} = render(<TodoSectionHeader title="Active Tasks" />);
+    const { getByText } = render(<TodoSectionHeader title="Active Tasks" />);
     expect(getByText('Active Tasks')).toBeTruthy();
   });
 
   it('applies correct styles', () => {
-    const {getByText} = render(<TodoSectionHeader title="Completed Tasks" />);
+    const { getByText } = render(<TodoSectionHeader title="Completed Tasks" />);
     const header = getByText('Completed Tasks');
 
     expect(header.props.style).toMatchObject({
       fontSize: 18,
-      color: '#666666',
-      padding: 24,
-      paddingBottom: 16,
+      color: theme.colors.text.secondary,
     });
   });
 
   it('handles empty title', () => {
-    const {getByTestId} = render(<TodoSectionHeader title="" testID="section-header" />);
+    const { getByTestId } = render(<TodoSectionHeader title="" testID="section-header" />);
     expect(getByTestId('section-header')).toBeTruthy();
   });
 });
