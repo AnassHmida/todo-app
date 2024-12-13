@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { TodoAPI } from '@/services/api/todoApi';
-import { Todo, TodoInput } from '@/types/todo';
+import {create} from 'zustand';
+import {TodoAPI} from '@/services/api/todoApi';
+import {Todo, TodoInput} from '@/types/todo';
 
 interface TodoStore {
   todos: Todo[];
@@ -19,17 +19,17 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
   error: null,
 
   fetchTodos: async () => {
-    set({ isLoading: true, error: null });
+    set({isLoading: true, error: null});
     try {
       const todos = await TodoAPI.getTodos();
-      set({ todos, isLoading: false });
+      set({todos, isLoading: false});
     } catch (error) {
-      set({ error: 'Failed to fetch todos', isLoading: false });
+      set({error: 'Failed to fetch todos', isLoading: false});
     }
   },
 
   addTodo: async (todoInput: TodoInput) => {
-    set({ isLoading: true, error: null });
+    set({isLoading: true, error: null});
     try {
       const newTodo = await TodoAPI.addTodo(todoInput);
       set(state => ({
@@ -37,7 +37,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
         isLoading: false,
       }));
     } catch (error) {
-      set({ error: 'Failed to add todo', isLoading: false });
+      set({error: 'Failed to add todo', isLoading: false});
     }
   },
 
@@ -50,14 +50,14 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
       }
 
       const updatedTodo = await TodoAPI.updateTodo(todo.id, {
-        completed: !todo.completed
+        completed: !todo.completed,
       });
 
       set(state => ({
         todos: state.todos.map(t => (t.id === id ? updatedTodo : t)),
       }));
     } catch (error) {
-      set({ error: 'Failed to toggle todo' });
+      set({error: 'Failed to toggle todo'});
     }
   },
 
@@ -68,18 +68,18 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
         todos: state.todos.filter(t => t.id !== id),
       }));
     } catch (error) {
-      set({ error: 'Failed to delete todo' });
+      set({error: 'Failed to delete todo'});
     }
   },
 
   updateTodo: async (id: string, title: string) => {
     try {
-      const updatedTodo = await TodoAPI.updateTodo(id, { title });
+      const updatedTodo = await TodoAPI.updateTodo(id, {title});
       set(state => ({
         todos: state.todos.map(t => (t.id === id ? updatedTodo : t)),
       }));
     } catch (error) {
-      set({ error: 'Failed to update todo' });
+      set({error: 'Failed to update todo'});
     }
   },
 }));

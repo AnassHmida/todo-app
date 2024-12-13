@@ -1,13 +1,10 @@
-import { renderHook, act } from '@testing-library/react-native';
-import { useAuthStore } from '@/store/authStore';
-import { AuthAPI as authApi } from '@/services/api/authApi';
-
-
-
+import {renderHook, act} from '@testing-library/react-native';
+import {useAuthStore} from '@/store/authStore';
+import {AuthAPI as authApi} from '@/services/api/authApi';
 
 describe('authStore', () => {
   beforeEach(() => {
-    useAuthStore.setState({ user: null, isLoading: false, error: null });
+    useAuthStore.setState({user: null, isLoading: false, error: null});
     jest.clearAllMocks();
   });
 
@@ -15,12 +12,12 @@ describe('authStore', () => {
     jest.spyOn(authApi, 'login').mockResolvedValueOnce({
       user: {
         id: '1',
-        username: 'testuser'
+        username: 'testuser',
       },
-      token: 'mock-token'
+      token: 'mock-token',
     });
 
-    const { result } = renderHook(() => useAuthStore());
+    const {result} = renderHook(() => useAuthStore());
 
     await act(async () => {
       await result.current.login('testuser', 'password123');
@@ -32,7 +29,7 @@ describe('authStore', () => {
   });
 
   it('handles login failure', async () => {
-    const { result } = renderHook(() => useAuthStore());
+    const {result} = renderHook(() => useAuthStore());
 
     await act(async () => {
       await result.current.login('testuser', '12345');
@@ -45,7 +42,7 @@ describe('authStore', () => {
   it('handles network error during login', async () => {
     jest.spyOn(authApi, 'login').mockRejectedValueOnce(new Error('Network error'));
 
-    const { result } = renderHook(() => useAuthStore());
+    const {result} = renderHook(() => useAuthStore());
 
     await act(async () => {
       await result.current.login('testuser', 'password123');
@@ -59,12 +56,12 @@ describe('authStore', () => {
     jest.spyOn(authApi, 'register').mockResolvedValueOnce({
       user: {
         id: '1',
-        username: 'newuser'
+        username: 'newuser',
       },
-      token: 'new-token'
+      token: 'new-token',
     });
 
-    const { result } = renderHook(() => useAuthStore());
+    const {result} = renderHook(() => useAuthStore());
 
     await act(async () => {
       await result.current.signup('newuser', 'password123');
@@ -78,7 +75,7 @@ describe('authStore', () => {
   it('handles signup failure', async () => {
     jest.spyOn(authApi, 'register').mockRejectedValueOnce(new Error('Username taken'));
 
-    const { result } = renderHook(() => useAuthStore());
+    const {result} = renderHook(() => useAuthStore());
 
     await act(async () => {
       await result.current.signup('existinguser', 'password123');
@@ -89,7 +86,7 @@ describe('authStore', () => {
   });
 
   it('handles logout', () => {
-    const { result } = renderHook(() => useAuthStore());
+    const {result} = renderHook(() => useAuthStore());
 
     act(() => {
       result.current.logout();

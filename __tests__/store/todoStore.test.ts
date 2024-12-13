@@ -1,123 +1,123 @@
-import { renderHook, act } from '@testing-library/react-native';
-import { useTodoStore } from '@/store/todoStore';
-import { TodoAPI } from '@/services/api/todoApi';
+import {renderHook, act} from '@testing-library/react-native';
+import {useTodoStore} from '@/store/todoStore';
+import {TodoAPI} from '@/services/api/todoApi';
 
 const mockTodo = {
-    id: '1',
-    title: 'Test Todo',
-    completed: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+  id: '1',
+  title: 'Test Todo',
+  completed: false,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
 };
 
 describe('todoStore', () => {
-    beforeEach(() => {
-        useTodoStore.setState({ todos: [], isLoading: false, error: null });
-        jest.clearAllMocks();
+  beforeEach(() => {
+    useTodoStore.setState({todos: [], isLoading: false, error: null});
+    jest.clearAllMocks();
+  });
+
+  it('handles fetchTodos success', async () => {
+    jest.spyOn(TodoAPI, 'getTodos').mockResolvedValueOnce([mockTodo]);
+
+    const {result} = renderHook(() => useTodoStore());
+
+    await act(async () => {
+      await result.current.fetchTodos();
     });
 
-    it('handles fetchTodos success', async () => {
-        jest.spyOn(TodoAPI, 'getTodos').mockResolvedValueOnce([mockTodo]);
+    expect(result.current.todos).toHaveLength(1);
+    expect(result.current.todos[0]).toEqual(mockTodo);
+    expect(result.current.error).toBeNull();
+  });
 
-        const { result } = renderHook(() => useTodoStore());
+  it('handles addTodo success', async () => {
+    jest.spyOn(TodoAPI, 'addTodo').mockResolvedValueOnce(mockTodo);
 
-        await act(async () => {
-            await result.current.fetchTodos();
-        });
+    const {result} = renderHook(() => useTodoStore());
 
-        expect(result.current.todos).toHaveLength(1);
-        expect(result.current.todos[0]).toEqual(mockTodo);
-        expect(result.current.error).toBeNull();
+    await act(async () => {
+      await result.current.addTodo({title: 'Test Todo', completed: false});
     });
 
-    it('handles addTodo success', async () => {
-        jest.spyOn(TodoAPI, 'addTodo').mockResolvedValueOnce(mockTodo);
+    expect(result.current.todos).toHaveLength(1);
+    expect(result.current.todos[0]).toEqual(mockTodo);
+  });
 
-        const { result } = renderHook(() => useTodoStore());
+  it('handles toggleTodo success', async () => {
+    const toggledTodo = {...mockTodo, completed: true};
+    jest.spyOn(TodoAPI, 'updateTodo').mockResolvedValueOnce(toggledTodo);
 
-        await act(async () => {
-            await result.current.addTodo({ title: 'Test Todo', completed: false });
-        });
+    const {result} = renderHook(() => useTodoStore());
+    useTodoStore.setState({todos: [mockTodo]});
 
-        expect(result.current.todos).toHaveLength(1);
-        expect(result.current.todos[0]).toEqual(mockTodo);
+    await act(async () => {
+      await result.current.toggleTodo('1');
     });
 
-    it('handles toggleTodo success', async () => {
-        const toggledTodo = { ...mockTodo, completed: true };
-        jest.spyOn(TodoAPI, 'updateTodo').mockResolvedValueOnce(toggledTodo);
+    expect(result.current.todos[0].completed).toBe(true);
+  });
 
-        const { result } = renderHook(() => useTodoStore());
-        useTodoStore.setState({ todos: [mockTodo] });
+  it('handles removeTodo success', async () => {
+    jest.spyOn(TodoAPI, 'deleteTodo').mockResolvedValueOnce();
 
-        await act(async () => {
-            await result.current.toggleTodo('1');
-        });
+    const {result} = renderHook(() => useTodoStore());
+    useTodoStore.setState({todos: [mockTodo]});
 
-        expect(result.current.todos[0].completed).toBe(true);
+    await act(async () => {
+      await result.current.removeTodo('1');
     });
 
-    it('handles removeTodo success', async () => {
-        jest.spyOn(TodoAPI, 'deleteTodo').mockResolvedValueOnce();
+    expect(result.current.todos).toHaveLength(0);
+  });
 
-        const { result } = renderHook(() => useTodoStore());
-        useTodoStore.setState({ todos: [mockTodo] });
+  it('handles fetchTodos failure', async () => {
+    jest.spyOn(TodoAPI, 'getTodos').mockRejectedValueOnce(new Error('Network error'));
 
-        await act(async () => {
-            await result.current.removeTodo('1');
-        });
+    const {result} = renderHook(() => useTodoStore());
 
-        expect(result.current.todos).toHaveLength(0);
+    await act(async () => {
+      await result.current.fetchTodos();
     });
 
-    it('handles fetchTodos failure', async () => {
-        jest.spyOn(TodoAPI, 'getTodos').mockRejectedValueOnce(new Error('Network error'));
+    expect(result.current.todos).toHaveLength(0);
+    expect(result.current.error).toBe('Failed to fetch todos');
+  });
 
-        const { result } = renderHook(() => useTodoStore());
+  it('handles addTodo failure', async () => {
+    jest.spyOn(TodoAPI, 'addTodo').mockRejectedValueOnce(new Error('Failed to add'));
 
-        await act(async () => {
-            await result.current.fetchTodos();
-        });
+    const {result} = renderHook(() => useTodoStore());
 
-        expect(result.current.todos).toHaveLength(0);
-        expect(result.current.error).toBe('Failed to fetch todos');
+    await act(async () => {
+      await result.current.addTodo({title: 'Test Todo', completed: false});
     });
 
-    it('handles addTodo failure', async () => {
-        jest.spyOn(TodoAPI, 'addTodo').mockRejectedValueOnce(new Error('Failed to add'));
+    expect(result.current.error).toBe('Failed to add todo');
+  });
 
-        const { result } = renderHook(() => useTodoStore());
+  it('handles toggleTodo failure', async () => {
+    jest.spyOn(TodoAPI, 'updateTodo').mockRejectedValueOnce(new Error('Update failed'));
 
-        await act(async () => {
-            await result.current.addTodo({ title: 'Test Todo', completed: false });
-        });
+    const {result} = renderHook(() => useTodoStore());
+    useTodoStore.setState({todos: [mockTodo]});
 
-        expect(result.current.error).toBe('Failed to add todo');
+    await act(async () => {
+      await result.current.toggleTodo('1');
     });
 
-    it('handles toggleTodo failure', async () => {
-        jest.spyOn(TodoAPI, 'updateTodo').mockRejectedValueOnce(new Error('Update failed'));
+    expect(result.current.error).toBe('Failed to toggle todo');
+  });
 
-        const { result } = renderHook(() => useTodoStore());
-        useTodoStore.setState({ todos: [mockTodo] });
+  it('handles removeTodo failure', async () => {
+    jest.spyOn(TodoAPI, 'deleteTodo').mockRejectedValueOnce(new Error('Delete failed'));
 
-        await act(async () => {
-            await result.current.toggleTodo('1');
-        });
+    const {result} = renderHook(() => useTodoStore());
+    useTodoStore.setState({todos: [mockTodo]});
 
-        expect(result.current.error).toBe('Failed to toggle todo');
+    await act(async () => {
+      await result.current.removeTodo('1');
     });
 
-    it('handles removeTodo failure', async () => {
-        jest.spyOn(TodoAPI, 'deleteTodo').mockRejectedValueOnce(new Error('Delete failed'));
-
-        const { result } = renderHook(() => useTodoStore());
-        useTodoStore.setState({ todos: [mockTodo] });
-
-        await act(async () => {
-            await result.current.removeTodo('1');
-        });
-
-        expect(result.current.error).toBe('Failed to delete todo');
-    });
-}); 
+    expect(result.current.error).toBe('Failed to delete todo');
+  });
+});

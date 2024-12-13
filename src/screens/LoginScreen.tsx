@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Input } from '@/components/common/Input';
-import { Button } from '@/components/common/Button';
-import { LoadingOverlay } from '@/components/common/LoadingOverlay';
-import { useAuthStore } from '@/store/authStore';
-import { styles } from '@/styles/screens/LoginScreen.styles';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '@/navigation/types';
+import React, {useState} from 'react';
+import {View, Text, Pressable} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {Input} from '@/components/common/Input';
+import {Button} from '@/components/common/Button';
+import {LoadingOverlay} from '@/components/common/LoadingOverlay';
+import {useAuthStore} from '@/store/authStore';
+import {styles} from '@/styles/screens/LoginScreen.styles';
+import {useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '@/navigation/types';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
 export const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { login, isLoading, error } = useAuthStore();
+  const {login, isLoading, error} = useAuthStore();
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const handleLogin = () => {
