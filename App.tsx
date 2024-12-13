@@ -5,32 +5,11 @@
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
-import {RootNavigator} from '@/navigation/RootNavigator';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {initDatabase} from '@/services/database';
-import {LoadingOverlay} from '@/components/common/LoadingOverlay';
+import React from 'react';
+import { RootNavigator } from '@/navigation/RootNavigator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App = () => {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const init = async () => {
-      try {
-        await initDatabase();
-        setIsReady(true);
-      } catch (error) {
-        console.error('Failed to initialize app:', error);
-      }
-    };
-
-    init();
-  }, []);
-
-  if (!isReady) {
-    return <LoadingOverlay />;
-  }
-
   return (
     <SafeAreaProvider>
       <RootNavigator />
