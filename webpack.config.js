@@ -6,12 +6,13 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx|js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!(react-native-vector-icons|react-native)\/).*/,
         use: {
           loader: 'babel-loader',
         },
@@ -27,6 +28,20 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.ttf$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              mimetype: 'application/octet-stream',
+              name: 'static/media/[name].[hash:8].[ext]',
+            },
+          },
+        ],
+        include: path.resolve(__dirname, 'node_modules/react-native-vector-icons'),
       },
       {
         test: /\.css$/,
@@ -49,5 +64,8 @@ module.exports = {
   devServer: {
     port: 8082,
     historyApiFallback: true,
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
   },
 };

@@ -1,47 +1,51 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TextStyle} from 'react-native';
 import {theme} from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: theme.spacing.md,
+    padding: theme.spacing.m,
     backgroundColor: theme.colors.background.primary,
+    borderRadius: theme.borderRadius.medium,
+    marginVertical: theme.spacing.xs,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    elevation: 2,
   },
   checkbox: {
-    marginRight: theme.spacing.sm,
+    marginRight: theme.spacing.m,
+    borderRadius: theme.borderRadius.small,
   },
   content: {
     flex: 1,
-    marginRight: theme.spacing.sm,
-  },
-  input: {
-    flex: 1,
-    marginRight: theme.spacing.sm,
-    minHeight: 40,
-    padding: theme.spacing.sm,
-    borderWidth: 1,
-    borderColor: theme.colors.border.default,
-    borderRadius: 8,
-    backgroundColor: theme.colors.background.primary,
-    ...theme.typography.body,
+    marginRight: theme.spacing.m,
   },
   title: {
-    ...theme.typography.body,
+    ...(theme.typography.body as TextStyle),
     color: theme.colors.text.primary,
   },
   completedTitle: {
     textDecorationLine: 'line-through',
     color: theme.colors.text.secondary,
   },
-  actions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   editContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: theme.spacing.sm,
+  },
+  input: {
+    ...(theme.typography.body as TextStyle),
+    flex: 1,
+    marginRight: theme.spacing.m,
+    padding: theme.spacing.s,
+    borderRadius: theme.borderRadius.small,
+    backgroundColor: theme.colors.background.secondary,
+  },
+  actions: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

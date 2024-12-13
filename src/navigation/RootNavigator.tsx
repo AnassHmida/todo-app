@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const LogoutButton = () => {
   const logout = useAuthStore(state => state.logout);
-  return <IconButton icon="logout" onPress={logout} />;
+  return <IconButton name="logout" onPress={logout} />;
 };
 
 export const RootNavigator = () => {

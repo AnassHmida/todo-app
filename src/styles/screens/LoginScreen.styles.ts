@@ -8,22 +8,35 @@ export const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
-    padding: theme.spacing.lg,
+    padding: theme.spacing.xl,
     justifyContent: 'center',
-    gap: theme.spacing.lg,
+    gap: theme.spacing.l,
   },
   title: {
-    ...theme.typography.h1,
+    ...theme.typography.header,
+    fontSize: 32,
+    fontWeight: '800',
     color: theme.colors.text.primary,
     textAlign: 'center',
     marginBottom: theme.spacing.xl,
   },
   error: {
-    color: theme.colors.danger,
+    color: theme.colors.error,
     textAlign: 'center',
-    marginTop: theme.spacing.sm,
   },
   loadingContainer: {
-    marginTop: theme.spacing.md,
+    padding: theme.spacing.m,
+  },
+  button: {
+    backgroundColor: theme.colors.primary,
+    padding: theme.spacing.m,
+    borderRadius: theme.borderRadius.medium,
+    marginTop: theme.spacing.m,
+  },
+  buttonText: {
+    color: theme.colors.text.primary,
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 16,
   },
 });

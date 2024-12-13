@@ -7,12 +7,12 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.background.secondary,
   },
   listContent: {
-    padding: theme.spacing.md,
+    padding: theme.spacing.m,
   },
   error: {
     ...theme.typography.body,
-    color: theme.colors.danger,
+    color: theme.colors.disabled,
     textAlign: 'center',
-    padding: theme.spacing.lg,
+    padding: theme.spacing.l,
   },
 });

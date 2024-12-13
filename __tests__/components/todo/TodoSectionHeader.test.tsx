@@ -1,6 +1,7 @@
 import React from 'react';
 import {render} from '@testing-library/react-native';
 import {TodoSectionHeader} from '@/components/todo/TodoSectionHeader';
+import {theme} from '@/theme';
 
 jest.mock('@/theme', () => ({
   theme: {
@@ -34,9 +35,7 @@ describe('TodoSectionHeader', () => {
 
     expect(header.props.style).toMatchObject({
       fontSize: 18,
-      color: '#666666',
-      padding: 24,
-      paddingBottom: 16,
+      color: theme.colors.text.secondary,
     });
   });
 

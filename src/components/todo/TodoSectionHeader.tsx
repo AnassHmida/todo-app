@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     color: theme.colors.text.secondary,
-    padding: theme.spacing.lg,
-    paddingBottom: theme.spacing.md,
+    padding: theme.spacing.l,
+    paddingBottom: theme.spacing.m,
   },
 });
 

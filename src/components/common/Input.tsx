@@ -6,13 +6,12 @@ interface InputProps extends TextInputProps {
   disabled?: boolean;
 }
 
-export const Input = ({style, disabled, ...props}: InputProps) => {
+export const Input: React.FC<InputProps> = ({disabled, ...props}) => {
   return (
     <TextInput
-      style={[styles.input, style]}
-      editable={!disabled}
-      placeholderTextColor={theme.colors.gray[400]}
       {...props}
+      editable={!disabled}
+      style={[styles.input, disabled && styles.disabled, props.style]}
     />
   );
 };
@@ -21,9 +20,14 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: theme.colors.border.default,
-    borderRadius: 8,
-    padding: theme.spacing.md,
+    borderRadius: theme.borderRadius.medium,
+    padding: theme.spacing.m,
     fontSize: 16,
     backgroundColor: theme.colors.background.primary,
+    color: theme.colors.text.primary,
+  },
+  disabled: {
+    backgroundColor: theme.colors.disabled,
+    opacity: 0.7,
   },
 });

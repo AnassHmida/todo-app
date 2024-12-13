@@ -17,7 +17,7 @@ describe('EmptyState', () => {
 
     expect(title.props.style).toMatchObject({
       color: theme.colors.text.primary,
-      marginBottom: theme.spacing.sm,
+      marginBottom: theme.spacing.s,
     });
 
     expect(message.props.style).toMatchObject({
