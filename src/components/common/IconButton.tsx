@@ -1,7 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
+import {TouchableOpacity, StyleSheet, ViewStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { theme } from '@/theme';
+import {theme} from '@/theme';
 
 interface IconButtonProps {
   name: string;

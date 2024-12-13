@@ -1,12 +1,12 @@
 import React from 'react';
-import { TextInput, StyleSheet, TextInputProps } from 'react-native';
-import { theme } from '@/theme';
+import {TextInput, StyleSheet, TextInputProps} from 'react-native';
+import {theme} from '@/theme';
 
 interface InputProps extends TextInputProps {
   disabled?: boolean;
 }
 
-export const Input: React.FC<InputProps> = ({ disabled, ...props }) => {
+export const Input: React.FC<InputProps> = ({disabled, ...props}) => {
   return (
     <TextInput
       {...props}
@@ -29,5 +29,5 @@ const styles = StyleSheet.create({
   disabled: {
     backgroundColor: theme.colors.disabled,
     opacity: 0.7,
-  }
+  },
 });

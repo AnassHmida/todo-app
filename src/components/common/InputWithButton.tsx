@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Input } from './Input';
-import { Button } from './Button';
-import { theme } from '@/theme';
+import {View, StyleSheet} from 'react-native';
+import {Input} from './Input';
+import {Button} from './Button';
+import {theme} from '@/theme';
 
 export interface InputWithButtonProps {
   value: string;

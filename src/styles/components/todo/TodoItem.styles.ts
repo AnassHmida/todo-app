@@ -1,5 +1,5 @@
-import { StyleSheet, TextStyle } from 'react-native';
-import { theme } from '@/theme';
+import {StyleSheet, TextStyle} from 'react-native';
+import {theme} from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     borderRadius: theme.borderRadius.medium,
     marginVertical: theme.spacing.xs,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.05,
     shadowRadius: 3,
     elevation: 2,

@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Input } from '@/components/common/Input';
-import { Button } from '@/components/common/Button';
-import { theme } from '@/theme';
+import {View, StyleSheet} from 'react-native';
+import {Input} from '@/components/common/Input';
+import {Button} from '@/components/common/Button';
+import {theme} from '@/theme';
 
 interface TodoInputProps {
   value: string;
@@ -10,7 +10,7 @@ interface TodoInputProps {
   onSubmit: () => void;
 }
 
-export const TodoInput = ({ value, onChangeText, onSubmit }: TodoInputProps) => (
+export const TodoInput = ({value, onChangeText, onSubmit}: TodoInputProps) => (
   <View style={styles.container}>
     <Input
       value={value}

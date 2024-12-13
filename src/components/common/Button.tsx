@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
-import { theme } from '@/theme';
+import {TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle} from 'react-native';
+import {theme} from '@/theme';
 
 interface ButtonProps {
   title: string;
@@ -23,12 +23,7 @@ export const Button = ({
 }: ButtonProps) => (
   <TouchableOpacity
     testID={testID}
-    style={[
-      styles.button,
-      styles[variant],
-      disabled && styles.disabled,
-      style,
-    ]}
+    style={[styles.button, styles[variant], disabled && styles.disabled, style]}
     onPress={onPress}
     disabled={disabled}>
     <Text style={[styles.text, textStyle]}>{title}</Text>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
-import { IconButton } from '@/components/common/IconButton';
+import {render, fireEvent} from '@testing-library/react-native';
+import {IconButton} from '@/components/common/IconButton';
 
 describe('IconButton', () => {
   const mockOnPress = jest.fn();
@@ -12,7 +12,7 @@ describe('IconButton', () => {
   it('renders different icons correctly', () => {
     const icons = ['close', 'menu', 'check', 'add'] as const;
     icons.forEach(icon => {
-      const { getByTestId } = render(
+      const {getByTestId} = render(
         <IconButton name={icon} onPress={mockOnPress} testID={`icon-${icon}`} />,
       );
       expect(getByTestId(`icon-${icon}`)).toBeTruthy();
@@ -20,7 +20,7 @@ describe('IconButton', () => {
   });
 
   it('handles press events', () => {
-    const { getByTestId } = render(
+    const {getByTestId} = render(
       <IconButton name="edit" onPress={mockOnPress} testID="edit-button" />,
     );
     fireEvent.press(getByTestId('edit-button'));
@@ -29,13 +29,8 @@ describe('IconButton', () => {
 
   it('applies custom size', () => {
     const customSize = 40;
-    const { getByTestId } = render(
-      <IconButton
-        testID="sized-button"
-        name="close"
-        size={customSize}
-        onPress={() => { }}
-      />,
+    const {getByTestId} = render(
+      <IconButton testID="sized-button" name="close" size={customSize} onPress={() => {}} />,
     );
     const button = getByTestId('sized-button');
     expect(button.props.style).toMatchObject({

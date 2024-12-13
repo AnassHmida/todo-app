@@ -1,6 +1,6 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { theme } from '@/theme';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {theme} from '@/theme';
 
 export const LoadingOverlay = () => (
   <View style={styles.container} testID="loading-overlay">

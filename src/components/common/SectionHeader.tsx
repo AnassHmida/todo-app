@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { theme } from '@/theme';
+import {View, Text, StyleSheet} from 'react-native';
+import {theme} from '@/theme';
 
 interface SectionHeaderProps {
   title: string;
@@ -8,7 +8,7 @@ interface SectionHeaderProps {
   rightElement?: React.ReactNode;
 }
 
-export const SectionHeader = ({ title, count, rightElement }: SectionHeaderProps) => (
+export const SectionHeader = ({title, count, rightElement}: SectionHeaderProps) => (
   <View style={styles.container}>
     <View style={styles.titleContainer}>
       <Text style={styles.title}>{title}</Text>

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Checkbox } from '@/components/common/Checkbox';
-import { IconButton } from '@/components/common/IconButton';
-import { styles } from '@/styles/components/todo/TodoItem.styles';
-import { Todo } from '@/types/todo';
-import { Input } from '@/components/common/Input';
-import { theme } from '@/theme';
-import { AnimatedListItem } from '@/components/common/AnimatedListItem';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {Checkbox} from '@/components/common/Checkbox';
+import {IconButton} from '@/components/common/IconButton';
+import {styles} from '@/styles/components/todo/TodoItem.styles';
+import {Todo} from '@/types/todo';
+import {Input} from '@/components/common/Input';
+import {theme} from '@/theme';
+import {AnimatedListItem} from '@/components/common/AnimatedListItem';
 
 interface TodoItemProps {
   todo: Todo;
@@ -15,7 +15,7 @@ interface TodoItemProps {
   onEdit: (id: string, newTitle: string) => void;
 }
 
-export const TodoItem = ({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
+export const TodoItem = ({todo, onToggle, onDelete, onEdit}: TodoItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(todo.title);
 

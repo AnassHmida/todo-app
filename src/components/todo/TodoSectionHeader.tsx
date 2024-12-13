@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { theme } from '@/theme';
+import {Text} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {theme} from '@/theme';
 
 interface TodoSectionHeaderProps {
   title: string;
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const TodoSectionHeader: React.FC<TodoSectionHeaderProps> = ({ title, testID }) => {
+export const TodoSectionHeader: React.FC<TodoSectionHeaderProps> = ({title, testID}) => {
   return (
     <Text style={styles.sectionTitle} testID={testID}>
       {title}
