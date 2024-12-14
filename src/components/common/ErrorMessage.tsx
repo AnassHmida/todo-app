@@ -12,7 +12,7 @@ export const ErrorMessage = ({message}: ErrorMessageProps) => {
 
 const styles = StyleSheet.create({
   error: {
-    color: theme.colors.danger,
+    color: theme.colors.error,
     fontSize: 14,
     textAlign: 'center',
   },

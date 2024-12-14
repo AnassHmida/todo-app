@@ -7,8 +7,8 @@ const mockTodo = {
   userId: 'user1',
   title: 'Test Todo',
   completed: false,
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
 };
 
 describe('TodoItem', () => {

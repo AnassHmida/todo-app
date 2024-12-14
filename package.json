@@ -26,6 +26,7 @@
     "@react-navigation/native-stack": "^6.9.22",
     "@types/react-native-sqlite-storage": "^6.0.5",
     "@types/react-native-web": "^0.19.0",
+    "axios": "^1.7.9",
     "metro-react-native-babel-transformer": "^0.77.0",
     "react": "18.3.1",
     "react-dom": "^18.3.1",

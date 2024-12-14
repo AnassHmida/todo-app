@@ -6,6 +6,7 @@ import {LoginScreen} from '@/screens/LoginScreen';
 import {useAuthStore} from '../store/authStore';
 import {RootStackParamList} from './types';
 import {IconButton} from '@/components/common/IconButton';
+import {SignupScreen} from '@/screens/SignupScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -29,7 +30,10 @@ export const RootNavigator = () => {
             }}
           />
         ) : (
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Group screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+          </Stack.Group>
         )}
       </Stack.Navigator>
     </NavigationContainer>
