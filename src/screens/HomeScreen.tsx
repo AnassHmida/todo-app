@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {
   SectionList,
   View,
@@ -36,16 +36,19 @@ export const HomeScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const sections = [
-    {
-      title: 'Active',
-      data: todos.filter(todo => !todo.completed),
-    },
-    {
-      title: 'Completed',
-      data: todos.filter(todo => todo.completed),
-    },
-  ];
+  const sections = useMemo(
+    () => [
+      {
+        title: 'Active',
+        data: todos.filter(todo => !todo.completed),
+      },
+      {
+        title: 'Completed',
+        data: todos.filter(todo => todo.completed),
+      },
+    ],
+    [todos],
+  );
 
   const handleAddTodo = () => {
     if (newTodo.trim() && addTodo) {
