@@ -61,6 +61,16 @@ export const useAuthStore = create(
     {
       name: 'auth-storage',
       storage: createJSONStorage(() => AsyncStorage),
+      version: 1,
+      migrate: (persistedState: any, version: number) => {
+        if (version === 0) {
+          return {
+            ...persistedState,
+            token: null,
+          };
+        }
+        return persistedState as AuthStore;
+      },
     },
   ),
 );

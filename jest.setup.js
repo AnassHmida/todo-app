@@ -1,7 +1,6 @@
 import '@testing-library/jest-native/extend-expect';
 import 'react-native-gesture-handler/jestSetup';
 
-// Mock the Animated API
 jest.mock('react-native/src/private/Animated/NativeAnimatedHelper');
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock');
@@ -9,7 +8,6 @@ jest.mock('react-native-reanimated', () => {
   return Reanimated;
 });
 
-// Keep your existing mocks
 jest.mock('@react-native-async-storage/async-storage', () => ({
   setItem: jest.fn(),
   getItem: jest.fn(),
@@ -38,6 +36,11 @@ jest.mock('react-native-sqlite-storage', () => ({
     transaction: jest.fn(),
     executeSql: jest.fn(),
   })),
+}));
+
+jest.mock('react-native-splash-screen', () => ({
+  show: jest.fn(),
+  hide: jest.fn(),
 }));
 
 global.window = {};
