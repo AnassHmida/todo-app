@@ -1,61 +1,7 @@
-import axios from 'axios';
+import {ApiClient} from './apiClient';
 import {Todo, TodoInput} from '@/types/todo';
-import {Platform} from 'react-native';
-import {useAuthStore} from '@/store/authStore';
 
-const BASE_URL = Platform.select({
-  android: 'http://10.0.2.2:3000/api/v1',
-  ios: 'http://localhost:3000/api/v1',
-  web: 'http://localhost:3000/api/v1',
-  default: 'http://localhost:3000/api/v1',
-});
-
-const api = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-api.interceptors.request.use(request => {
-  const token = useAuthStore.getState().token;
-  if (token) {
-    request.headers.Authorization = `Bearer ${token}`;
-  }
-  return request;
-});
-
-api.interceptors.request.use(request => {
-  console.log('🚀 TODO API Request:', {
-    url: request.url,
-    baseURL: request.baseURL,
-    method: request.method,
-    data: request.data,
-    headers: request.headers,
-  });
-  return request;
-});
-
-api.interceptors.response.use(
-  response => {
-    console.log('✅ TODO API Response:', {
-      status: response.status,
-      data: response.data,
-      url: response.config.url,
-    });
-    return response;
-  },
-  error => {
-    console.log('❌ TODO API Error:', {
-      url: error.config?.url,
-      baseURL: error.config?.baseURL,
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
-    return Promise.reject(error);
-  },
-);
+const api = ApiClient.getInstance().getAxiosInstance();
 
 export const TodoAPI = {
   getTodos: async (): Promise<Todo[]> => {

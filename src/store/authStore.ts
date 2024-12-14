@@ -15,15 +15,23 @@ export interface AuthStore extends AuthState {
   login: (username: string, password: string) => Promise<void>;
   signup: (username: string, password: string) => Promise<void>;
   logout: () => void;
+  hydrate: () => void;
 }
 
 export const useAuthStore = create(
   persist<AuthStore>(
-    set => ({
+    (set, get) => ({
       user: null,
       isLoading: false,
       error: null,
       token: null,
+
+      hydrate: () => {
+        const state = get();
+        if (state.token) {
+          AuthAPI.setAuthToken(state.token);
+        }
+      },
 
       login: async (username: string, password: string) => {
         set({isLoading: true, error: null});

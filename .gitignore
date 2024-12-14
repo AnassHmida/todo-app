@@ -92,3 +92,14 @@ ios/build/
 # Android
 android/app/build/
 android/.gradle/
+
+# Environment files
+.env
+.env.development
+.env.production
+.env.local
+.env.*.local
+
+# Keep examples
+!.env.example
+!.env.*.example
