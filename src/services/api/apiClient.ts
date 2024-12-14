@@ -1,21 +1,21 @@
 import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
-import {Platform} from 'react-native';
+import {API_URL, API_TIMEOUT} from '@env';
 
 export class ApiClient {
   private static instance: ApiClient;
   private axiosInstance: AxiosInstance;
+  private static onUnauthorized?: () => void;
+
+  public static setUnauthorizedCallback(callback: () => void) {
+    ApiClient.onUnauthorized = callback;
+  }
 
   private constructor(config?: AxiosRequestConfig) {
-    const BASE_URL = Platform.select({
-      android: 'http://10.0.2.2:3000/api/v1',
-      ios: 'http://localhost:3000/api/v1',
-      web: 'http://localhost:3000/api/v1',
-      default: 'http://localhost:3000/api/v1',
-    });
+    const BASE_URL = API_URL;
 
     this.axiosInstance = axios.create({
       baseURL: BASE_URL,
-      timeout: 10000,
+      timeout: parseInt(API_TIMEOUT, 10),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -55,6 +55,11 @@ export class ApiClient {
           status: error.response?.status,
           message: error.message,
         });
+
+        if (error.response?.status === 401 && ApiClient.onUnauthorized) {
+          ApiClient.onUnauthorized();
+        }
+
         return Promise.reject(error);
       },
     );
