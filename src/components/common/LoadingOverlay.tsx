@@ -10,7 +10,7 @@ export const LoadingOverlay = () => (
 
 const styles = StyleSheet.create({
   container: {
-    padding: theme.spacing.md,
+    padding: theme.spacing.m,
     alignItems: 'center',
   },
 });

@@ -18,7 +18,22 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
     color: theme.colors.text.primary,
     textAlign: 'center',
-    marginBottom: theme.spacing.xl,
+  },
+  subtitle: {
+    color: theme.colors.text.secondary,
+    textAlign: 'center' as const,
+    marginBottom: theme.spacing.l,
+    fontSize: 16,
+    fontWeight: '400' as const,
+  },
+  inputContainer: {
+    gap: theme.spacing.xs,
+  },
+  label: {
+    color: theme.colors.text.secondary,
+    marginLeft: theme.spacing.xs,
+    fontSize: 14,
+    fontWeight: '400' as const,
   },
   error: {
     color: theme.colors.error,
@@ -31,7 +46,7 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
     padding: theme.spacing.m,
     borderRadius: theme.borderRadius.medium,
-    marginTop: theme.spacing.m,
+    marginTop: theme.spacing.l,
   },
   buttonText: {
     color: theme.colors.text.primary,
@@ -44,12 +59,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   linkText: {
+    ...theme.typography.body,
     color: theme.colors.text.secondary,
-    fontSize: 14,
     fontWeight: '400' as const,
   },
   linkHighlight: {
     color: theme.colors.primary,
-    fontWeight: '600' as const,
+    fontWeight: '600',
   },
 });

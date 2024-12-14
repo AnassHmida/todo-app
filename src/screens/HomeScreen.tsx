@@ -1,5 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {SectionList, View, Text, Button} from 'react-native';
+import {
+  SectionList,
+  View,
+  Text,
+  Button,
+  LayoutAnimation,
+  Platform,
+  UIManager,
+  TextStyle,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TodoItem} from '@/components/todo/TodoItem';
 import {TodoInput} from '@/components/todo/TodoInput';
@@ -9,6 +18,13 @@ import {EmptyState} from '@/components/common/EmptyState';
 import {useTodoStore} from '@/store/todoStore';
 import {styles} from '@/styles/screens/HomeScreen.styles';
 import {LoadingOverlay} from '@/components/common/LoadingOverlay';
+
+// Enable LayoutAnimation for Android
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 export const HomeScreen = () => {
   const [newTodo, setNewTodo] = useState('');
@@ -38,6 +54,24 @@ export const HomeScreen = () => {
     }
   };
 
+  const handleToggleTodo = (id: string) => {
+    LayoutAnimation.configureNext({
+      duration: 300,
+      create: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.opacity,
+      },
+      update: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+      },
+      delete: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.opacity,
+      },
+    });
+    toggleTodo(id);
+  };
+
   if (isLoading && todos.length === 0) {
     return <LoadingOverlay />;
   }
@@ -45,7 +79,7 @@ export const HomeScreen = () => {
   if (error) {
     return (
       <View style={styles.container}>
-        <Text style={styles.error}>{error}</Text>
+        <Text style={styles.error as TextStyle}>{error}</Text>
         <Button title="Retry" onPress={fetchTodos} />
       </View>
     );
@@ -69,13 +103,21 @@ export const HomeScreen = () => {
         sections={sections}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <TodoItem todo={item} onToggle={toggleTodo} onDelete={removeTodo} onEdit={updateTodo} />
+          <TodoItem
+            key={`${item.id}-${item.completed}`}
+            todo={item}
+            onToggle={handleToggleTodo}
+            onDelete={removeTodo}
+            onEdit={updateTodo}
+          />
         )}
         renderSectionHeader={({section: {title, data}}) =>
           data.length > 0 ? <TodoSectionHeader title={title} /> : null
         }
         stickySectionHeadersEnabled={false}
         contentContainerStyle={styles.listContent}
+        removeClippedSubviews={false}
+        extraData={todos}
       />
     </SafeAreaView>
   );

@@ -1,70 +1,57 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, TouchableOpacityProps} from 'react-native';
-import {colors} from '@/theme/colors';
-import {spacing} from '@/theme/spacing';
+import {TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle} from 'react-native';
+import {theme} from '@/theme';
 
-interface ButtonProps extends TouchableOpacityProps {
+interface ButtonProps {
   title: string;
+  onPress: () => void;
+  disabled?: boolean;
   variant?: 'primary' | 'secondary';
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  testID?: string;
 }
 
-export const Button = ({title, variant = 'primary', style, disabled, ...props}: ButtonProps) => {
-  return (
-    <TouchableOpacity
-      style={[styles.button, styles[variant], disabled && styles.disabled, style]}
-      disabled={disabled}
-      {...props}>
-      <Text style={[styles.text, styles[`${variant}Text`], disabled && styles.disabledText]}>
-        {title}
-      </Text>
-    </TouchableOpacity>
-  );
-};
+export const Button = ({
+  title,
+  onPress,
+  disabled = false,
+  variant = 'primary',
+  style,
+  textStyle,
+  testID,
+}: ButtonProps) => (
+  <TouchableOpacity
+    testID={testID}
+    style={[styles.button, styles[variant], disabled && styles.disabled, style]}
+    onPress={onPress}
+    disabled={disabled}>
+    <Text style={[styles.text, textStyle]}>{title}</Text>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   button: {
-    padding: spacing.md,
-    borderRadius: 12,
+    padding: theme.spacing.m,
+    borderRadius: theme.spacing.s,
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 48,
-    shadowColor: colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
   },
   primary: {
-    backgroundColor: colors.primary,
-    borderWidth: 0,
+    backgroundColor: theme.colors.primary,
   },
   secondary: {
     backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: colors.primary,
+    borderWidth: 1,
+    borderColor: theme.colors.primary,
   },
   disabled: {
-    backgroundColor: colors.gray[300],
-    borderWidth: 0,
-    shadowOpacity: 0,
-    elevation: 0,
+    backgroundColor: theme.colors.disabled,
+    opacity: 0.7,
   },
   text: {
+    color: theme.colors.text.primary,
     fontSize: 16,
     fontWeight: '600',
-    textAlign: 'center',
-    letterSpacing: 0.5,
-  },
-  primaryText: {
-    color: colors.background.primary,
-  },
-  secondaryText: {
-    color: colors.primary,
-  },
-  disabledText: {
-    color: colors.gray[500],
   },
 });

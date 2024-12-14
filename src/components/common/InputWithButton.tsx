@@ -49,9 +49,9 @@ export const InputWithButton = ({
 
 const styles = StyleSheet.create({
   container: {
-    padding: theme.spacing.md,
+    padding: theme.spacing.m,
   },
   inputWrapper: {
-    marginBottom: theme.spacing.sm,
+    marginBottom: theme.spacing.s,
   },
 });

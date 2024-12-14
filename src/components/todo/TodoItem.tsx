@@ -6,6 +6,7 @@ import {styles} from '@/styles/components/todo/TodoItem.styles';
 import {Todo} from '@/types/todo';
 import {Input} from '@/components/common/Input';
 import {theme} from '@/theme';
+import {AnimatedListItem} from '@/components/common/AnimatedListItem';
 
 interface TodoItemProps {
   todo: Todo;
@@ -35,7 +36,7 @@ export const TodoItem = ({todo, onToggle, onDelete, onEdit}: TodoItemProps) => {
   }, [todo.title]);
 
   return (
-    <View style={styles.container}>
+    <AnimatedListItem style={styles.container}>
       <Checkbox
         testID="checkbox"
         checked={todo.completed}
@@ -57,7 +58,7 @@ export const TodoItem = ({todo, onToggle, onDelete, onEdit}: TodoItemProps) => {
           />
           <IconButton
             testID="save-button"
-            icon="save"
+            name="save"
             onPress={handleSubmitEdit}
             color={theme.colors.success}
           />
@@ -70,8 +71,8 @@ export const TodoItem = ({todo, onToggle, onDelete, onEdit}: TodoItemProps) => {
         </TouchableOpacity>
       )}
       <View style={styles.actions}>
-        <IconButton testID="delete-button" icon="delete" onPress={() => onDelete(todo.id)} />
+        <IconButton testID="delete-button" name="delete" onPress={() => onDelete(todo.id)} />
       </View>
-    </View>
+    </AnimatedListItem>
   );
 };

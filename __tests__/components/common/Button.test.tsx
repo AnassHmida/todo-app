@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, fireEvent} from '@testing-library/react-native';
 import {Button} from '@/components/common/Button';
-
+import {theme} from '@/theme';
 describe('Button', () => {
   const defaultProps = {
     title: 'Test Button',
@@ -28,6 +28,8 @@ describe('Button', () => {
     const button = getByTestId('button');
     expect(button.props.style).toMatchObject({
       backgroundColor: 'transparent',
+      borderWidth: 1,
+      borderColor: theme.colors.primary,
     });
   });
 

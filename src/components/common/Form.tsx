@@ -13,7 +13,7 @@ export const Form = ({children, style}: FormProps) => {
 
 const styles = StyleSheet.create({
   form: {
-    padding: theme.spacing.lg,
-    gap: theme.spacing.md,
+    padding: theme.spacing.l,
+    gap: theme.spacing.m,
   },
 });
