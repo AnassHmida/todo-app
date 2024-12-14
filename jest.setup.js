@@ -4,7 +4,7 @@ import 'react-native-gesture-handler/jestSetup';
 jest.mock('react-native/src/private/Animated/NativeAnimatedHelper');
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock');
-  Reanimated.default.call = () => { };
+  Reanimated.default.call = () => {};
   return Reanimated;
 });
 
@@ -36,7 +36,7 @@ jest.mock('@react-navigation/native', () => {
       dispatch: jest.fn(),
       reset: jest.fn(),
     })),
-    NavigationContainer: ({ children }) => children,
+    NavigationContainer: ({children}) => children,
   };
 });
 
@@ -51,7 +51,7 @@ jest.mock('react-native-sqlite-storage', () => ({
 jest.mock('react-native-dotenv', () => ({
   API_URL: 'http://localhost:3000/api/v1',
   API_TIMEOUT: '10000',
-  APP_ENV: 'test'
+  APP_ENV: 'test',
 }));
 
 jest.mock('react-native-splash-screen', () => ({
