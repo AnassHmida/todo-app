@@ -1,8 +1,8 @@
-import {create} from 'zustand';
-import {persist, createJSONStorage} from 'zustand/middleware';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {User} from '@/types/auth';
-import {AuthAPI} from '@/services/api/authApi';
+import { User } from '@/types/auth';
+import { AuthAPI } from '@/services/api/authApi';
 
 interface AuthState {
   user: User | null;
@@ -19,18 +19,18 @@ export interface AuthStore extends AuthState {
 
 export const useAuthStore = create(
   persist<AuthStore>(
-    set => ({
+    (set) => ({
       user: null,
       isLoading: false,
       error: null,
       token: null,
 
       login: async (username: string, password: string) => {
-        set({isLoading: true, error: null});
+        set({ isLoading: true, error: null });
         try {
-          const {user, token} = await AuthAPI.login(username, password);
+          const { user, token } = await AuthAPI.login(username, password);
           AuthAPI.setAuthToken(token);
-          set({user, token, isLoading: false});
+          set({ user, token, isLoading: false });
         } catch (error) {
           set({
             error: error instanceof Error ? error.message : 'Login failed',
@@ -40,11 +40,11 @@ export const useAuthStore = create(
       },
 
       signup: async (username: string, password: string) => {
-        set({isLoading: true, error: null});
+        set({ isLoading: true, error: null });
         try {
-          const {user, token} = await AuthAPI.register(username, password);
+          const { user, token } = await AuthAPI.register(username, password);
           AuthAPI.setAuthToken(token);
-          set({user, token, isLoading: false});
+          set({ user, token, isLoading: false });
         } catch (error) {
           set({
             error: error instanceof Error ? error.message : 'Signup failed',
@@ -55,12 +55,22 @@ export const useAuthStore = create(
 
       logout: () => {
         AuthAPI.clearAuthToken();
-        set({user: null, token: null, error: null});
+        set({ user: null, token: null, error: null });
       },
     }),
     {
       name: 'auth-storage',
       storage: createJSONStorage(() => AsyncStorage),
+      version: 1,
+      migrate: (persistedState: any, version: number) => {
+        if (version === 0) {
+          return {
+            ...persistedState,
+            token: null,
+          };
+        }
+        return persistedState as AuthStore;
+      },
     },
   ),
 );
