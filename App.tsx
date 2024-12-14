@@ -5,9 +5,9 @@
  * @format
  */
 
-import React, { useEffect } from 'react';
-import { RootNavigator } from '@/navigation/RootNavigator';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React, {useEffect} from 'react';
+import {RootNavigator} from '@/navigation/RootNavigator';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 
 const App = () => {
@@ -23,4 +23,3 @@ const App = () => {
 };
 
 export default App;
-
