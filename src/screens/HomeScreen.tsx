@@ -1,25 +1,15 @@
 import React, {useState, useEffect, useMemo} from 'react';
-import {
-  SectionList,
-  View,
-  Text,
-  Button,
-  LayoutAnimation,
-  Platform,
-  UIManager,
-  TextStyle,
-} from 'react-native';
+import {SectionList, LayoutAnimation, Platform, UIManager} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TodoItem} from '@/components/todo/TodoItem';
 import {TodoInput} from '@/components/todo/TodoInput';
 import {TodoHeader} from '@/components/todo/TodoHeader';
 import {TodoSectionHeader} from '@/components/todo/TodoSectionHeader';
 import {EmptyState} from '@/components/common/EmptyState';
-import {useTodoStore} from '@/store/todoStore';
+import {useTodoStore} from '@/store/todo/todoStore';
 import {styles} from '@/styles/screens/HomeScreen.styles';
 import {LoadingOverlay} from '@/components/common/LoadingOverlay';
 
-// Enable LayoutAnimation for Android
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -28,8 +18,7 @@ if (Platform.OS === 'android') {
 
 export const HomeScreen = () => {
   const [newTodo, setNewTodo] = useState('');
-  const {todos, isLoading, error, fetchTodos, addTodo, toggleTodo, removeTodo, updateTodo} =
-    useTodoStore();
+  const {todos, status, fetchTodos, addTodo, toggleTodo, removeTodo, updateTodo} = useTodoStore();
 
   useEffect(() => {
     fetchTodos();
@@ -75,17 +64,8 @@ export const HomeScreen = () => {
     toggleTodo(id);
   };
 
-  if (isLoading && todos.length === 0) {
+  if (status === 'loading' && todos.length === 0) {
     return <LoadingOverlay />;
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.error as TextStyle}>{error}</Text>
-        <Button title="Retry" onPress={fetchTodos} />
-      </View>
-    );
   }
 
   if (todos.length === 0) {

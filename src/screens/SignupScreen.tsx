@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Input} from '@/components/common/Input';
 import {Button} from '@/components/common/Button';
 import {LoadingOverlay} from '@/components/common/LoadingOverlay';
-import {useAuthStore} from '@/store/authStore';
+import {useAuthStore} from '@/store/auth/authStore';
 import {styles} from '@/styles/screens/SignupScreen.styles';
 import {useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -15,7 +15,7 @@ type SignupScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 
 export const SignupScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const {signup, isLoading, error} = useAuthStore();
+  const {signup, status, error} = useAuthStore();
   const navigation = useNavigation<SignupScreenNavigationProp>();
 
   const handleSignup = () => {
@@ -35,7 +35,7 @@ export const SignupScreen = () => {
             onChangeText={setUsername}
             placeholder="Enter your username"
             autoCapitalize="none"
-            disabled={isLoading}
+            disabled={status === 'loading'}
           />
         </View>
 
@@ -46,13 +46,13 @@ export const SignupScreen = () => {
             onChangeText={setPassword}
             placeholder="Enter your password"
             secureTextEntry
-            disabled={isLoading}
+            disabled={status === 'loading'}
           />
         </View>
 
         {error && <Text style={styles.error}>{error}</Text>}
 
-        {isLoading ? (
+        {status === 'loading' ? (
           <View style={styles.loadingContainer}>
             <LoadingOverlay />
           </View>

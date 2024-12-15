@@ -1,10 +1,10 @@
 import {renderHook, act} from '@testing-library/react-native';
-import {useAuthStore} from '@/store/authStore';
+import {useAuthStore} from '@/store/auth/authStore';
 import {AuthAPI as authApi} from '@/services/api/authApi';
 
 describe('authStore', () => {
   beforeEach(() => {
-    useAuthStore.setState({user: null, isLoading: false, error: null});
+    useAuthStore.setState({user: null, status: 'idle', error: null});
     jest.clearAllMocks();
   });
 

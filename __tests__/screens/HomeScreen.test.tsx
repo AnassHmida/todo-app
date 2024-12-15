@@ -1,9 +1,9 @@
 import React from 'react';
 import {render, waitFor} from '@testing-library/react-native';
 import {HomeScreen} from '@/screens/HomeScreen';
-import {useTodoStore} from '@/store/todoStore';
+import {useTodoStore} from '@/store/todo/todoStore';
 
-jest.mock('@/store/todoStore');
+jest.mock('@/store/todo/todoStore');
 
 describe('HomeScreen', () => {
   const mockTodos = [
@@ -30,7 +30,7 @@ describe('HomeScreen', () => {
   beforeEach(() => {
     (useTodoStore as unknown as jest.Mock).mockReturnValue({
       todos: mockTodos,
-      isLoading: false,
+      status: 'idle',
       error: null,
       fetchTodos: mockFetchTodos,
       addTodo: jest.fn(),
@@ -48,32 +48,32 @@ describe('HomeScreen', () => {
     });
   });
 
-  it('shows loading state', async () => {
+  it('shows empty state when no todos', async () => {
     (useTodoStore as unknown as jest.Mock).mockReturnValue({
       todos: [],
-      isLoading: true,
+      status: 'idle',
       error: null,
       fetchTodos: mockFetchTodos,
     });
 
-    const {getByTestId} = render(<HomeScreen />);
-    await waitFor(() => {
-      expect(getByTestId('loading-overlay')).toBeTruthy();
-    });
+    const {getByText} = render(<HomeScreen />);
+    expect(getByText('No Tasks Yet')).toBeTruthy();
+    expect(getByText('Add your first task using the input above!')).toBeTruthy();
   });
 
-  it('shows error state', async () => {
-    const errorMessage = 'Failed to load todos';
+  it('shows loading state', async () => {
     (useTodoStore as unknown as jest.Mock).mockReturnValue({
       todos: [],
-      isLoading: false,
-      error: errorMessage,
+      status: 'loading',
+      error: null,
       fetchTodos: mockFetchTodos,
+      addTodo: jest.fn(),
+      toggleTodo: jest.fn(),
+      removeTodo: jest.fn(),
+      updateTodo: jest.fn(),
     });
 
-    const {getByText} = render(<HomeScreen />);
-    await waitFor(() => {
-      expect(getByText(errorMessage)).toBeTruthy();
-    });
+    const {getByTestId} = render(<HomeScreen />);
+    expect(getByTestId('loading-overlay')).toBeTruthy();
   });
 });
