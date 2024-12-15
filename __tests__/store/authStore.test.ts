@@ -29,6 +29,8 @@ describe('authStore', () => {
   });
 
   it('handles login failure', async () => {
+    jest.spyOn(authApi, 'login').mockRejectedValueOnce(new Error('Invalid credentials'));
+
     const {result} = renderHook(() => useAuthStore());
 
     await act(async () => {
