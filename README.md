@@ -100,6 +100,53 @@ yarn test:watch
 yarn test:coverage
 ```
 
+## 📱 Code Quality
+
+### Linting and Formatting
+
+The project uses ESLint and Prettier for code quality and consistent formatting:
+
+```bash
+# Run linter
+yarn lint
+
+# Fix linting issues
+yarn lint:fix
+
+# Format code
+yarn format
+```
+
+### Git Hooks with Husky
+
+We use Husky to enforce code quality checks before commits. The pre-commit hook runs:
+
+- Linting fixes
+- Code formatting
+- Test suite
+
+This ensures that all committed code meets our quality standards.
+
+To skip hooks temporarily (not recommended):
+
+```bash
+git commit -m "your message" --no-verify
+```
+
+### Validation
+
+Run all checks at once:
+
+```bash
+yarn validate
+```
+
+This runs:
+
+- Type checking
+- Linting
+- Test suite
+
 ## 📱 Features Implemented
 
 - User authentication (login/logout)
