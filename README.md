@@ -1,79 +1,184 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+#  Todo React Native Application
 
-# Getting Started
+A cross-platform todo application built with React Native and TypeScript demonstrating modern mobile development practices.
 
-> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## 🚀 Features
 
-## Step 1: Start the Metro Server
+- **Authentication**
+  - Session-based authentication
+  - Secure token management
+  - Persistent login state
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- **Todo Management**
+  - Create, edit, and delete todos
+  - Mark todos as complete/incomplete
 
-To start Metro, run the following command from the _root_ of your React Native project:
+
+
+- **Cross Platform**
+  - iOS
+  - Android
+  - Web
+
+## 🛠 Tech Stack
+
+- **Frontend**
+  - React Native with TypeScript
+  - Zustand for state management
+  - React Navigation
+  - AsyncStorage for persistence
+  - Jest & React Testing Library
+
+
+## 🏗 Project Structure
+
+```
+src/
+├── components/     # Reusable components
+├── screens/        # Screen components
+├── store/          # State management
+├── services/       # API and external services
+├── theme/          # Styling and themes
+└── utils/          # Utilities and helpers
+```
+
+## 🚦 Getting Started
+
+### Prerequisites
+
+- Node.js (v14+)
+- Yarn
+- iOS: XCode 12+
+- Android: Android Studio & SDK
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd TodoApp
+```
+
+2. Install dependencies
+```bash
+yarn install
+```
+
+3. iOS Setup
+```bash
+cd ios && pod install && cd ..
+```
+
+### Running the App
 
 ```bash
-# using npm
-npm start
+# iOS
+yarn ios
 
-# OR using Yarn
+# Android
+yarn android
+
+# Web
+yarn web
+
+# Development
 yarn start
 ```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+### Testing
 
 ```bash
-# using npm
-npm run android
+# Run all tests
+yarn test
 
-# OR using Yarn
+# Watch mode
+yarn test:watch
+
+# Coverage report
+yarn test:coverage
+```
+
+## 📱 Features Implemented
+
+- User authentication (login/logout)
+- Todo CRUD operations
+- Cross-platform compatibility
+- Comprehensive test coverage
+- Type safety with TypeScript
+- Clean and maintainable architecture
+
+## 🧪 Testing Strategy
+
+- Unit tests for business logic
+- Component tests with React Testing Library
+- Integration tests for critical paths
+- 100% coverage for core features
+
+## 🔐 Environment Setup
+
+The application uses `.env.development` for local development configuration.
+
+### Local Development Setup
+
+1. Copy `.env.example` to `.env.development`:
+```bash
+cp .env.example .env.development
+```
+
+2. Configure your `.env.development`:
+```properties
+# API Configuration
+API_URL=http://localhost:3000/api/v1  # Your local API endpoint
+API_TIMEOUT=10000                     # API timeout in milliseconds
+
+# App Environment
+APP_ENV=development
+```
+
+3. Start the app:
+```bash
+# Start Metro bundler
+yarn start
+
+# In another terminal, run iOS or Android
+yarn ios
+# or
 yarn android
 ```
 
-### For iOS
+> **Note**: 
+> - `.env.development` is used for local development
+> - This file is already in `.gitignore`
+> - Make sure your backend server is running on the configured port (default: 3000)
 
+### For Android Emulator
+
+1. Make sure you have an Android emulator running or create one via Android Studio
+   - Open Android Studio
+   - Go to "Tools" > "Device Manager"
+   - Create a new device if none exists
+
+2. Update `.env.development`:
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+# For Android Emulator
+API_URL=http://10.0.2.2:3000/api/v1  # Maps to localhost on your machine
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+### Running on Physical Android Device
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+1. Enable USB debugging on your device:
+   - Go to Settings > About Phone
+   - Tap "Build Number" 7 times to enable developer options
+   - Go back to Settings > System > Developer Options
+   - Enable "USB Debugging"
 
-## Step 3: Modifying your App
+2. Update `.env.development`:
+```bash
+# For Physical Device
+API_URL=http://<your-machine-ip>:3000/api/v1  # Example: http://192.168.1.100:3000/api/v1
+```
 
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+> **Note**: 
+> - Use `ipconfig` (Windows) or `ifconfig` (Mac/Linux) to find your machine's IP address
+> - Make sure your phone and computer are on the same network
+> - Android debug manifest already includes `android:usesCleartextTraffic="true"` for local development
