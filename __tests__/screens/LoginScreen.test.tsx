@@ -1,13 +1,13 @@
 import React from 'react';
 import {render, fireEvent} from '@testing-library/react-native';
 import {LoginScreen} from '@/screens/LoginScreen';
-import {useAuthStore} from '@/store/authStore';
-import {AuthStore} from '@/store/authStore';
+import {useAuthStore} from '@/store/auth/authStore';
+import {AuthStore} from '@/store/auth/types';
 
 // First cast to unknown, then to jest.Mock
 const mockUseAuthStore = useAuthStore as unknown as jest.MockedFunction<() => Partial<AuthStore>>;
 
-jest.mock('@/store/authStore', () => ({
+jest.mock('@/store/auth/authStore', () => ({
   useAuthStore: jest.fn(),
 }));
 
@@ -17,7 +17,7 @@ describe('LoginScreen', () => {
   beforeEach(() => {
     mockUseAuthStore.mockReturnValue({
       login: mockLogin,
-      isLoading: false,
+      status: 'idle',
       error: null,
     });
   });
@@ -41,7 +41,7 @@ describe('LoginScreen', () => {
 
   it('shows loading state', () => {
     mockUseAuthStore.mockReturnValue({
-      isLoading: true,
+      status: 'loading',
       error: null,
     });
     const {getByTestId} = render(<LoginScreen />);
@@ -51,7 +51,7 @@ describe('LoginScreen', () => {
   it('shows error message', () => {
     const errorMessage = 'Invalid credentials';
     mockUseAuthStore.mockReturnValue({
-      isLoading: false,
+      status: 'idle',
       error: errorMessage,
     });
     const {getByText} = render(<LoginScreen />);

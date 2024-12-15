@@ -12,7 +12,6 @@ export class ApiClient {
 
   private constructor(config?: AxiosRequestConfig) {
     const BASE_URL = API_URL;
-
     this.axiosInstance = axios.create({
       baseURL: BASE_URL,
       timeout: parseInt(API_TIMEOUT, 10),
@@ -58,6 +57,12 @@ export class ApiClient {
 
         if (error.response?.status === 401 && ApiClient.onUnauthorized) {
           ApiClient.onUnauthorized();
+        }
+
+        if (error.code === 'ECONNABORTED') {
+          return Promise.reject(
+            new Error('Request timed out. Please check your connection and try again.'),
+          );
         }
 
         return Promise.reject(error);

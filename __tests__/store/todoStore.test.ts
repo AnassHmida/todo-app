@@ -1,5 +1,5 @@
 import {renderHook, act} from '@testing-library/react-native';
-import {useTodoStore} from '@/store/todoStore';
+import {useTodoStore} from '@/store/todo/todoStore';
 import {TodoAPI} from '@/services/api/todoApi';
 
 const mockTodo = {
@@ -12,7 +12,7 @@ const mockTodo = {
 
 describe('todoStore', () => {
   beforeEach(() => {
-    useTodoStore.setState({todos: [], isLoading: false, error: null});
+    useTodoStore.setState({todos: [], status: 'idle', error: null});
     jest.clearAllMocks();
   });
 
@@ -118,6 +118,6 @@ describe('todoStore', () => {
       await result.current.removeTodo('1');
     });
 
-    expect(result.current.error).toBe('Failed to delete todo');
+    expect(result.current.error).toBe('Failed to remove todo');
   });
 });

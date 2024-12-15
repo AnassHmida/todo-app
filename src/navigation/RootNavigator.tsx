@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen} from '@/screens/HomeScreen';
 import {LoginScreen} from '@/screens/LoginScreen';
-import {useAuthStore} from '../store/authStore';
+import {useAuthStore} from '@/store/auth/authStore';
 import {RootStackParamList} from './types';
 import {IconButton} from '@/components/common/IconButton';
 import {SignupScreen} from '@/screens/SignupScreen';

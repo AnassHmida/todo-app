@@ -1,9 +1,9 @@
 import React from 'react';
 import {render, fireEvent} from '@testing-library/react-native';
 import {SignupScreen} from '@/screens/SignupScreen';
-import {useAuthStore} from '@/store/authStore';
+import {useAuthStore} from '@/store/auth/authStore';
 
-jest.mock('@/store/authStore');
+jest.mock('@/store/auth/authStore');
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),
